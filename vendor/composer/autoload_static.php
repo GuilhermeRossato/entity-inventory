@@ -4,45 +4,107 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit610c0bb4696904e26e04a14f771b5371
+class ComposerStaticInit0c574945b730a1c7ce2fbd3bf162c4f3
 {
     public static $files = array (
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        '8a9dc1de0ca7e01f3e08231539562f61' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/functions.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '5d80ba682afba25d348d62676196765b' => __DIR__ . '/../..' . '/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Twig\\' => 5,
+        ),
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\Process\\' => 26,
+            'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\DomCrawler\\' => 29,
+            'Symfony\\Component\\Debug\\' => 24,
+            'Symfony\\Component\\Console\\' => 26,
+            'Symfony\\Component\\BrowserKit\\' => 29,
+        ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Cache\\' => 10,
         ),
-        'J' => 
+        'M' => 
         array (
-            'JmesPath\\' => 9,
+            'Monolog\\' => 8,
         ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'Google\\Cloud\\Utils\\' => 19,
+            'Google\\Cloud\\TestUtils\\' => 23,
+            'Google\\Cloud\\Samples\\Datastore\\Tasks\\' => 37,
+            'Google\\Cloud\\Datastore\\' => 23,
+            'Google\\Cloud\\Core\\' => 18,
+            'Google\\Auth\\' => 12,
         ),
-        'A' => 
+        'F' => 
         array (
-            'Aws\\' => 4,
+            'Firebase\\JWT\\' => 13,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\DomCrawler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dom-crawler',
+        ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Symfony\\Component\\BrowserKit\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/browser-kit',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'JmesPath\\' => 
+        'Psr\\Cache\\' => 
         array (
-            0 => __DIR__ . '/..' . '/mtdowling/jmespath.php/src',
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -56,17 +118,59 @@ class ComposerStaticInit610c0bb4696904e26e04a14f771b5371
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Aws\\' => 
+        'Google\\Cloud\\Utils\\' => 
         array (
-            0 => __DIR__ . '/..' . '/aws/aws-sdk-php/src',
+            0 => __DIR__ . '/..' . '/google/cloud-tools/src/Utils',
+        ),
+        'Google\\Cloud\\TestUtils\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/cloud-tools/src/TestUtils',
+        ),
+        'Google\\Cloud\\Samples\\Datastore\\Tasks\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Google\\Cloud\\Datastore\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/cloud-datastore',
+        ),
+        'Google\\Cloud\\Core\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/cloud-core',
+        ),
+        'Google\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/auth/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
+        'R' => 
+        array (
+            'Rize\\UriTemplate' => 
+            array (
+                0 => __DIR__ . '/..' . '/rize/uri-template/src',
+            ),
         ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit610c0bb4696904e26e04a14f771b5371::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit610c0bb4696904e26e04a14f771b5371::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0c574945b730a1c7ce2fbd3bf162c4f3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0c574945b730a1c7ce2fbd3bf162c4f3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0c574945b730a1c7ce2fbd3bf162c4f3::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

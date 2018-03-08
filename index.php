@@ -1,28 +1,20 @@
-<?php
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Inventario de Objetos</title>
+	<link rel="stylesheet" type="text/css" href="/static/web-app/loading.css" media="screen">
+	<style>
+		html, body {
+			min-width: 100vw;
+			min-height: 100%;
+			background-color: #3E4243;
+		}
+	</style>
+</head>
+<body>
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Include the SDK using the Composer autoloader
-require 'vendor/autoload.php';
-/*
-$s3 = new Aws\S3\S3Client([
-    'version' => 'latest',
-    'region'  => 'us-east-1'
-]);
-*/
-$sdk = new Aws\Sdk([
-    'region'   => 'us-west-2',
-    'version'  => 'latest',
-    'DynamoDb' => [
-        'region' => 'eu-central-1'
-    ]
-]);
-
-// Creating a DynamoDb client will use the "eu-central-1" region.
-$client = $sdk->createDynamoDb();
-
-var_dump($client);
-
-echo "<br>End of strem<br>\n";
+</body>
+</html>

@@ -1,0 +1,10 @@
+runtime: php55
+api_version: 1
+
+handlers:
+- url: /robots\.txt
+  static_files: app/static/robots.txt
+  upload: app/static/robots.txt
+  expiration: 21d
+- url: /.*
+  script: test.php

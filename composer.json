@@ -1,5 +1,14 @@
 {
     "require": {
-        "aws/aws-sdk-php": "^3.52"
+        "google/cloud-datastore": "^1.2",
+        "symfony/console": "^3.0"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^6.3",
+        "google/cloud-tools": "^0.6"
+    },
+    "autoload": {
+        "psr-4": { "Google\\Cloud\\Samples\\Datastore\\Tasks\\": "src" },
+        "files": ["src/functions.php"]
     }
 }
