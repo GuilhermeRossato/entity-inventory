@@ -74,7 +74,9 @@ class CurlFactory implements CurlFactoryInterface
             curl_setopt($resource, CURLOPT_HEADERFUNCTION, null);
             curl_setopt($resource, CURLOPT_READFUNCTION, null);
             curl_setopt($resource, CURLOPT_WRITEFUNCTION, null);
-            curl_setopt($resource, CURLOPT_PROGRESSFUNCTION, null);
+			if ($_SERVER['REMOTE_ADDR'] !== "::1") {
+				curl_setopt($resource, CURLOPT_PROGRESSFUNCTION, null);
+			}
             curl_reset($resource);
             $this->handles[] = $resource;
         }
@@ -464,7 +466,10 @@ class CurlFactory implements CurlFactoryInterface
                     array_shift($args);
                 }
                 call_user_func_array($progress, $args);
-            };
+			};
+			if ($_SERVER['REMOTE_ADDR'] === "::1") {
+				unset($conf[CURLOPT_PROGRESSFUNCTION]);
+			}
         }
 
         if (!empty($options['debug'])) {
