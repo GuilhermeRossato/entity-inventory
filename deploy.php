@@ -3,8 +3,7 @@
 $config = [
 	"project" => "entity-inventory"
 ];
-
-if (php_sapi_name() != 'cli') {
+if ((isset($_SERVER['REMOTE_ADDR'])) && ($_SERVER['REMOTE_ADDR'] === "::1") && (php_sapi_name() != 'cli')) {
 	echo "This script must be run from console";
 	exit(1);
 }

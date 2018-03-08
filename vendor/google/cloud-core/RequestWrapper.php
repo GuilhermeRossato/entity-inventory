@@ -165,6 +165,7 @@ class RequestWrapper
         try {
             return $backoff->execute($this->httpHandler, [$this->applyHeaders($request), $restOptions]);
         } catch (\Exception $ex) {
+			die("RequestWrapper.php:168 - ".$ex);
             throw $this->convertToGoogleException($ex);
         }
     }

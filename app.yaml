@@ -3,8 +3,17 @@ api_version: 1
 
 handlers:
 - url: /robots\.txt
-  static_files: app/static/robots.txt
-  upload: app/static/robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
   expiration: 21d
-- url: /.*
-  script: test.php
+# Serve homepage
+- url: /
+  script: index.php
+# Serve images as static resources.
+- url: /(.+\.(gif|png|jpg|css|js))$
+  static_files: \1
+  upload: .+\.(gif|png|jpg|css|js)$
+  application_readable: true
+# Serve php scripts.
+- url: /(.+\.php)$
+  script: \1

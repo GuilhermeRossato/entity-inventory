@@ -31,6 +31,7 @@ class CurlFactory implements CurlFactoryInterface
 
     public function create(RequestInterface $request, array $options)
     {
+		global $set_options_manually_func;
         if (isset($options['curl']['body_as_string'])) {
             $options['_body_as_string'] = $options['curl']['body_as_string'];
             unset($options['curl']['body_as_string']);
@@ -53,9 +54,79 @@ class CurlFactory implements CurlFactoryInterface
         $conf[CURLOPT_HEADERFUNCTION] = $this->createHeaderFn($easy);
         $easy->handle = $this->handles
             ? array_pop($this->handles)
-            : curl_init();
-        curl_setopt_array($easy->handle, $conf);
-
+			: curl_init();
+		echo "CurlFactory.php:58\nbacktrace: ";
+		debug_print_backtrace();
+		die("CurlFactory.php:60");
+		echo "CurlFactory.php:58\nconf: ";
+		$conf[CURLOPT_URL] = str_replace("\0", "", $conf[CURLOPT_URL]);
+		//$conf[CURLOPT_URL] = str_replace(":", "/", $conf[CURLOPT_URL]);
+		$conf[CURLOPT_URL] = str_replace("-", "/", $conf[CURLOPT_URL]);
+		$conf[CURLOPT_URL] = "https://www.google.com/";
+		curl_setopt_array($easy->handle, $conf);
+		var_export($conf);
+		echo "\n";
+		$curlClass = is_resource($easy->handle)?"Curl":get_class($easy->handle);
+		/*
+		if (($curlClass === 'google\appengine\runtime\CurlLite')) {
+			if (!isset($set_options_manually_func)) {
+				$set_options_manually_func = function ($curlInstance) {
+					$errnum = $curlInstance->error_number;
+					$errstr = $curlInstance->error_string;
+					$curlInstance->setError(CURLE_OK, "OK");
+					//$curlInstance->options[CURLOPT_URL] = "https://www.google.com/";
+					echo "treat ".$errnum." (".$errstr.") to ".($curlInstance->error_number)."\n";
+					$tryToGetReturn = $curlInstance->tryGetOption(CURLOPT_URL, $value);
+					echo "Try to get: ".var_export($tryToGetReturn, true)."\nValue:".(isset($value)?var_export($value, true):"not defined")."\n";
+					//echo "Setting opt again:".var_export(curl_setopt_array($curlInstance, $conf), true)."\n";
+					echo "Err now: ".($curlInstance->error_number)." and '".$curlInstance->error_string."'\n";
+					$curlInstance->setOption(CURLOPT_URL, "https://datastore.googleapis.com/v1/projects/entity-inventory:allocateIds");
+					if ($curlInstance->error_number === 0) {
+						echo "Error is zero and i'm setting options again manually: ";
+						var_export(curl_setopt_array($curlInstance, array (
+							10036 => 'POST',
+							10002 => 'https://datastore.googleapis.com/v1/projects/entity-inventory:allocateIds',
+							19913 => false,
+							42 => false,
+							78 => 150,
+							181 => 3,
+							84 => 2,
+							10015 => '{"keys":[{"partitionId":{"projectId":"entity-inventory"},"path":[{"kind":"Task"}]}]}',
+							10023 => array (
+								0 => 'Expect:',
+								1 => 'Accept-Encoding:',
+								2 => 'User-Agent: gcloud-php/1.2.2',
+								3 => 'x-goog-api-client: gl-php/7.0.27 gccl/1.2.2',
+								//4 => 'Authorization: Bearer ya29.c.Elp4BbDlSiMyEh1NoMqP8lz9ESk3OoraKfJqo4QNzuRbipJv6Nwn1cKLsou54iA-4-bbeeGDmlxgVN4jRDzxdXR9ulojaRwHnWOMPuscJIk5NYvhmmk1ISo2Iu0',
+								5 => 'Host: datastore.googleapis.com',
+								6 => 'Content-Type: application/json',
+								7 => 'Accept:',
+							),
+							81 => 0,
+							64 => false,
+							10001 => NULL,
+							10102 => ''
+						)));
+						echo " - done\n";
+						echo "Err AFTER ".($curlInstance->error_number)."\n";
+					} else {
+						echo "There's an error: ".($curlInstance->error_number)."\n";
+					}
+					$curlInstance->setError(CURLE_OK, "OK");
+					echo "Err fixed ".($curlInstance->error_number)."\n";
+					return var_export($curlInstance->options, true);
+				};
+			}
+			$newFunc = \Closure::bind($set_options_manually_func, null, $easy->handle);
+			echo "CurlFactory.php:74 - curl options:";
+			echo ($newFunc($easy->handle));
+			echo "\n";
+			//echo "i".$newFunc()."\n";
+			//set_options_manually("hey");
+		}*/
+		if ("https://www.googleapis.com/oauth2/v4/token" !== $conf[CURLOPT_URL]) {
+			//die("CurlFactory.php:58 ".var_export($conf[CURLOPT_URL], true)." curl:".$curlClass);
+		}
         return $easy;
     }
 
@@ -74,7 +145,7 @@ class CurlFactory implements CurlFactoryInterface
             curl_setopt($resource, CURLOPT_HEADERFUNCTION, null);
             curl_setopt($resource, CURLOPT_READFUNCTION, null);
             curl_setopt($resource, CURLOPT_WRITEFUNCTION, null);
-			if ($_SERVER['REMOTE_ADDR'] !== "::1") {
+			if ((isset($_SERVER['REMOTE_ADDR'])) && ($_SERVER['REMOTE_ADDR'] === "::1")) {
 				curl_setopt($resource, CURLOPT_PROGRESSFUNCTION, null);
 			}
             curl_reset($resource);
@@ -139,7 +210,17 @@ class CurlFactory implements CurlFactoryInterface
         $ctx = [
             'errno' => $easy->errno,
             'error' => curl_error($easy->handle),
-        ] + curl_getinfo($easy->handle);
+		];
+		echo "CurlFactory.php:165 - finishError ";
+		$array_to_concatenate = curl_getinfo($easy->handle);
+		if (is_bool($array_to_concatenate)) {
+			echo "Is booleanic ".($array_to_concatenate?"y":"n")."\n";
+			var_export($ctx);
+		} else if (is_array($array_to_concatenate)) {
+			foreach ($array_to_concatenate as $key=>$data) {
+				$ctx[$key] = $data;
+			}
+		}
         $factory->release($easy);
 
         // Retry when nothing is present or when curl failed to rewind.
@@ -319,7 +400,7 @@ class CurlFactory implements CurlFactoryInterface
     private function applyHandlerOptions(EasyHandle $easy, array &$conf)
     {
         $options = $easy->options;
-		if ($_SERVER['REMOTE_ADDR'] === "::1") {
+		if ((isset($_SERVER['REMOTE_ADDR'])) && ($_SERVER['REMOTE_ADDR'] === "::1")) {
 			$options['verify'] = false;
 		}
         if (isset($options['verify'])) {
@@ -467,7 +548,7 @@ class CurlFactory implements CurlFactoryInterface
                 }
                 call_user_func_array($progress, $args);
 			};
-			if ($_SERVER['REMOTE_ADDR'] === "::1") {
+			if ((isset($_SERVER['REMOTE_ADDR'])) && ($_SERVER['REMOTE_ADDR'] !== "::1")) {
 				unset($conf[CURLOPT_PROGRESSFUNCTION]);
 			}
         }
