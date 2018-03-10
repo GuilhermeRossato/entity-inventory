@@ -1,5 +1,9 @@
 <?php
 
+if (!isset($_SERVER['REQUEST_URI']) || ($_SERVER['REQUEST_URI'] !== "/")) {
+	return false;
+}
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -12,38 +16,48 @@ error_reporting(E_ALL);
 	<meta http-equiv="X-UA-Compatible" content="chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Inventario de Objetos</title>
-	<link rel="stylesheet" type="text/css" href="/static/web-app/loading.css" media="screen">
 	<style>
 		html, body {
 			min-width: 100vw;
 			min-height: 100%;
-			background-color: #4F5152;
+			display: flex;
+			margin: 0;
+			padding: 0;
+		}
+		.centerize {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 		}
-		body > div {
-			width: 750px;
+		.content {
 			background-color: white;
-			border-radius: 2px;
-			padding: 10px 15px;
+			box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+			border-radius: 50%;
 		}
-		.material-loader {
+		body > div.full-page-image {
+			background: #4F5152 url('http://md-pro-angular2.creative-tim.com/assets/img/login.jpeg') no-repeat center center;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			background-size: cover;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			min-height: 100%;
+			z-index: -1;
+		}
+		.startup-loader {
 			--width: 100px;
-			--zoom: 1;
 			--green: #008744;
 			--blue: #0057e7;
 			--red: #d62d20;
 			--yellow: #ffa700;
-			position: relative;
-			margin: 0px auto;
+			position: fixed;
 			width: var(--width);
 			height: var(--width);
-			transition: zoom 1s ease-in-out;
-			zoom: var(--zoom);
 		}
 
-		.material-loader .circular {
+		.startup-loader .circular {
 			animation: rotate 2s linear infinite;
 			height: var(--width);
 			position: relative;
@@ -51,7 +65,7 @@ error_reporting(E_ALL);
 		}
 
 
-		.material-loader .path {
+		.startup-loader .path {
 			stroke-dasharray: 1,200;
 			stroke-dashoffset: 0;
 			animation: dash 1.5s ease-in-out infinite,
@@ -94,11 +108,19 @@ error_reporting(E_ALL);
 		}
 	</style>
 </head>
-<body>
-<div class="material-loader">
-  <svg class="circular">
-    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="5"/>
-  </svg>
-</div>
+<body class="centerize">
+	<div class="content-wrapper"><div class="content"></div></div>
+	<div class="full-page-image"></div>
+	<div class="startup-loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="5"/></svg></div>
+	<link rel="stylesheet" type="text/css" href="style/content.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="style/components/CardHeader.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="style/components/LoginForm.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="style/components/Button.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="style/components/StackedInput.css" media="screen">
+	<script src="script/startup.js"></script>
+	<script src="script/components/CardContent.js"></script>
+	<script src="script/components/CardHeader.js"></script>
+	<script src="script/components/LoginForm.js"></script>
+	<script src="script/components/StackedInput.js"></script>
 </body>
 </html>

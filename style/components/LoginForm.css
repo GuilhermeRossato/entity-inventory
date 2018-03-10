@@ -1,0 +1,7 @@
+login-form .input-group {
+	padding: 0 20px;
+	transition: opacity 0.4s ease-in-out 0.5s;
+}
+login-form .actions-group {
+	margin-top: 10px;
+}

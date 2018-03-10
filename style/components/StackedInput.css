@@ -1,0 +1,56 @@
+stacked-input {padding-bottom: 10px;margin: 20px 0 0 0;display: block;box-sizing: border-box;height: 36px;}
+
+stacked-input input {
+	border: 0;
+	box-sizing: border-box;
+	background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#D2D2D2, #D2D2D2);
+	background-size: 0 2px, 100% 1px;
+	background-repeat: no-repeat;
+	background-position: center bottom, center calc(100% - 1px);
+	background-color: transparent;
+	transition: background 0s ease-out;
+	box-shadow: none;
+	border-radius: 0;
+	font-weight: 400;
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	margin-bottom: 0;
+	height: 36px;
+	top: -19px;
+	padding: 7px 0 7px 5px;
+	font-size: 14px;
+	line-height: 1.42857;
+}
+
+stacked-input.is-focused input {
+	outline: none;
+	background-image: linear-gradient(#9c27b0, #9c27b0), linear-gradient(#D2D2D2, #D2D2D2);
+	background-size: 100% 2px, 100% 1px;
+	box-shadow: none;
+	transition-duration: 0.3s;
+}
+
+stacked-input label {
+	color: #AAAAAA;
+	font-weight: 400;
+	margin: 0px 0 -16px 0;
+	display: inline-block;
+	top: 9px;
+	left: 5px;
+	box-sizing: border-box;
+	padding: 0;
+	font-size: 14px;
+	line-height: 1.42857;
+	position: relative;
+	pointer-events: none;
+	transition: 0.3s ease all;
+	will-change: left, top;
+}
+
+stacked-input.is-focused label, stacked-input.has-content label {
+	top: -15px;
+	left: 0;
+	font-size: 11px;
+	line-height: 1.07143;
+}
