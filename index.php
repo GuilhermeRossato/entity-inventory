@@ -1,3 +1,10 @@
+<?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,68 +25,80 @@
 		body > div {
 			width: 750px;
 			background-color: white;
-			border: 1px solid #000;
 			border-radius: 2px;
 			padding: 10px 15px;
+		}
+		.material-loader {
+			--width: 100px;
+			--zoom: 1;
+			--green: #008744;
+			--blue: #0057e7;
+			--red: #d62d20;
+			--yellow: #ffa700;
+			position: relative;
+			margin: 0px auto;
+			width: var(--width);
+			height: var(--width);
+			transition: zoom 1s ease-in-out;
+			zoom: var(--zoom);
+		}
+
+		.material-loader .circular {
+			animation: rotate 2s linear infinite;
+			height: var(--width);
+			position: relative;
+			width: var(--width);
+		}
+
+
+		.material-loader .path {
+			stroke-dasharray: 1,200;
+			stroke-dashoffset: 0;
+			animation: dash 1.5s ease-in-out infinite,
+			color 6s ease-in-out infinite;
+			stroke-linecap: round;
+		}
+
+		@keyframes rotate{
+			100%{
+				transform: rotate(360deg);
+			}
+		}
+		@keyframes dash{
+			0%{
+				stroke-dasharray: 1,200;
+				stroke-dashoffset: 0;
+			}
+			50%{
+				stroke-dasharray: 89,200;
+				stroke-dashoffset: -35;
+			}
+			100%{
+				stroke-dasharray: 89,200;
+				stroke-dashoffset: -124;
+			}
+		}
+		@keyframes color{
+			100%, 0%{
+				stroke: var(--red);
+			}
+			40%{
+				stroke: var(--blue);
+			}
+			66%{
+				stroke: var(--green);
+			}
+			80%, 90%{
+				stroke: var(--yellow);
+			}
 		}
 	</style>
 </head>
 <body>
-<div>
-<?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-require __DIR__ . '/vendor/autoload.php';
-
-if ($_SERVER['REMOTE_ADDR'] === "::1") {
-	putenv(Google\Auth\CredentialsLoader::ENV_VAR."=".__DIR__."/credentials/entity-inventory-a3f3735b122c.json");
-}
-
-use Google\Cloud\Datastore\DatastoreClient;
-
-/**
- * Create a Cloud Datastore client.
- *
- * @param string $projectId
- * @return DatastoreClient
- */
-function build_datastore_service($projectId)
-{
-    $datastore = new DatastoreClient(['projectId' => $projectId]);
-    return $datastore;
-}
-
-/**
- * Create a new task with a given description.
- *
- * @param DatastoreClient $datastore
- * @param $description
- * @return Google\Cloud\Datastore\Entity
- */
-function add_task(DatastoreClient $datastore, $description)
-{
-    $taskKey = $datastore->key('Task');
-    $task = $datastore->entity(
-        $taskKey,
-        [
-            'created' => new DateTime(),
-            'description' => $description,
-            'done' => false
-        ],
-        ['excludeFromIndexes' => ['description']]
-    );
-    $datastore->insert($task);
-    return $task;
-}
-echo "\nstart2<br>\n<pre style='white-space:pre-wrap'>";
-var_dump(add_task(build_datastore_service("entity-inventory"), "Hello World"));
-//var_dump($_SERVER);
-echo "</pre>\n<br>end2<br>\n";
-
-?>
+<div class="material-loader">
+  <svg class="circular">
+    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="5"/>
+  </svg>
 </div>
 </body>
 </html>

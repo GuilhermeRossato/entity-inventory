@@ -1,0 +1,20 @@
+{
+    "creation-date": null,
+    "files": [],
+    "name": "Gaveta eletronicos",
+    "type": "",
+    "target-date": null,
+    "short-desc": "",
+    "desc": "Membrana(caixa marrom).\r\nFonte de notebook bivolt 19v 3.4a(plastico transparente).\r\nShift registrer SMD x20 74595(papel).\r\nM\u00f3dulo de sensor infrared (saco amarelo).\r\nResistores SMD(saco branco).\r\nEsponjas para ferro de solda x10(saco branco).\r\nProtoboard pequena (saco transparente).\r\nConversor de dc-dc 5 volts (caixinha preta).\r\nPlaca schield x7 (saco transparente).\r\nCaixinhas pretas\r\nMotor de passo 2x 5v 5 vias (plastico transparente).\r\nM\u00f3dulo RTC (saco de plastico).\r\nMicro USB soldavel x40 (saco azul).\r\nTrimpot 100k x11 (pl\u00e1stico).\r\n50 led SMD (envelope amarelo).\r\n2m fita led(pacote amarelo).\r\nCabos finos(caixa transparente).\r\n",
+    "author": "Guilherme Rossato",
+    "categories": [
+        ""
+    ],
+    "tags": [
+        ""
+    ],
+    "entity-date": null,
+    "modified-date": null,
+    "placement": "Fundo da gaveta",
+    "last-author": "Guilherme Rossato"
+}
