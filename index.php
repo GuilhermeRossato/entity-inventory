@@ -1,6 +1,12 @@
 <?php
 
-if (!isset($_SERVER['REQUEST_URI']) || ($_SERVER['REQUEST_URI'] !== "/")) {
+require_once implode(DIRECTORY_SEPARATOR, [__DIR__, "app", "classes", "Session.php"]);
+
+if (isset($_SERVER['REQUEST_URI'])) {
+	if ($_SERVER['REQUEST_URI'] !== "/") {
+		return false;
+	}
+} else {
 	return false;
 }
 
