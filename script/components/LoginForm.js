@@ -10,15 +10,13 @@ window.customElements.define('login-form', class extends HTMLElement {
 			var element = document.createElement("div");
 			element.setAttribute("class", config[0]);
 			element.innerHTML = config[1];
-			if (fadesIn) {
-				element.style.opacity = "0";
-			}
 			this.appendChild(element);
 			return element;
 		});
 		if (fadesIn) {
+			this.style.opacity = "0";
 			requestAnimationFrame(()=>requestAnimationFrame(() => {
-				elements.forEach(element => element.style.opacity = "1");
+				this.style.opacity = "1";
 			}));
 		}
 
