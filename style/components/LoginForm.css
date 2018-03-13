@@ -4,7 +4,35 @@ login-form {
 }
 login-form .input-group {
 	padding: 0 20px;
+	transition: opacity 0.3s ease-in-out;
 }
 login-form .actions-group {
 	margin-top: 10px;
+	position: relative;
+	bottom: 0px;
+}
+login-form .fade-out {
+	opacity: 0;
+	pointer-events: none;
+}
+login-form .login-message {
+	transition: opacity 0.3s ease-out;
+	padding: 4px 25px;
+	max-width: 100%;
+	height: 117px;
+	box-sizing: border-box;
+	margin-top: -117px;
+	position: relative;
+	flex-wrap: wrap;
+	overflow: auto;
+}
+login-form .login-message ul {
+	-webkit-padding-start: 20px;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	padding: 5px 0 0 20px;
+}
+login-form .login-message ul li {
+	margin-top: 10px;
+	line-height: 19px;
 }

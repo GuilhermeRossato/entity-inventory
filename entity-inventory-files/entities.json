@@ -1,0 +1,80 @@
+{
+	"name": "Casa",
+	"placement": "Engenheiro Walter Boehl - Vila Ipiranga",
+	"access": ["guirossato","inesmiranda"],
+	"creation-date": null,
+	"modified-date": null,
+	"type": "folder",
+	"last-author": "Guilherme Rossato",
+	"content": [
+		{
+			"name": "Quarto do Guilherme",
+			"placement": "Frente",
+			"creation-date": null,
+			"modified-date": null,
+			"type": "folder",
+			"last-author":"Guilherme Rossato",
+			"content": [
+				{
+					"name": "Guarda-roupa",
+					"placement": null,
+					"creation-date": null,
+					"modified-date": null,
+					"type": "folder",
+					"last-author":"Guilherme Rossato",
+					"content": [
+						{
+							"name": "Gaveta de peças eletrônicos",
+							"placement": "Ultima gaveta da terceira coluna",
+							"creation-date": null,
+							"modified-date": null,
+							"type": "file",
+							"last-author":"Guilherme Rossato",
+							"content": [
+								[ "Membrana", "Caixa marrom" ],
+								[ "Fonte de notebook bivolt 19v 3.4a", "Plastico transparente"],
+								[ "20x Shift registrer SMD 74595", "Papel pequeno" ],
+								[ "M\u00f3dulo de sensor infrared", "Saco amarelo" ],
+								[ "Resistores SMD", "Saco branco" ],
+								[ "10x Esponjas para ferro de solda", "Saco branco"],
+								[ "Protoboard pequena", "Saco transparente" ],
+								[ "Conversor de dc-dc 5 volts", "Caixinha preta" ],
+								[ "15x Placa shield", "Saco transparente" ],
+								[ "4x Caixinhas pretas", "Soltas" ],
+								[ "2x Motor de passo 5v 5 vias", "Plastico transparente" ],
+								[ "M\u00f3dulo RTC", "Saco de plastico" ],
+								[ "Micro USB soldavel", "Saco azul" ],
+								[ "11x Trimpot 100k", "Pl\u00e1stico" ],
+								[ "50 led SMD", "envelope amarelo" ],
+								[ "2m fita led", "pacote amarelo" ],
+								[ "Cabos finos", "caixa transparente" ]
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+},{
+	"name": "Container Teste",
+	"placement": "Endereço do container de teste",
+	"creation-date": null,
+	"modified-date": null,
+	"type": "folder",
+	"last-author": "Guilherme Rossato",
+	"content": [
+		{
+			"name": "Caixa de calçados",
+			"placement": "No fundo \u00e1 direita",
+			"creation-date": null,
+			"modified-date": null,
+			"type": "file",
+			"last-author":"Guilherme Rossato",
+			"content": [
+				[ "Sapato preto", "Caixa marrom" ],
+				[ "Sapato marrom", "Caixa preta" ],
+				[ "Chinelos azuis", "Saco plastico" ]
+			]
+		}
+	]
+}

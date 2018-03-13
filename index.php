@@ -59,6 +59,9 @@ error_reporting(E_ALL);
 			--red: #d62d20;
 			--yellow: #ffa700;
 			position: fixed;
+			opacity: 1;
+			pointer-events: none;
+			transition: opacity 0.9s ease-in-out;
 			width: var(--width);
 			height: var(--width);
 		}

@@ -22,6 +22,9 @@ window.customElements.define('stacked-input', class extends HTMLElement {
     	input.value = this.getAttribute("value");
     	this.classList.add("has-content");
     }
+    if (this.hasAttribute("type")) {
+    	input.setAttribute("type", this.getAttribute("type"));
+    }
     this.appendChild(input);
     input.addEventListener("focus", ()=>this.classList.add("is-focused"));
     input.addEventListener("blur", ()=>this.classList.remove("is-focused"));
