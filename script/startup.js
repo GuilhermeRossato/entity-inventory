@@ -11,6 +11,7 @@ function startup() {
 			<card-header class="center-text" data-background-color="orange" fade-in><h4 class="card-title">Login</h4></card-header>
 			<card-content><login-form fade-in></login-form></card-content>
 		`);
+		setTimeout(()=>content.classList.add("fast-transition"),900);
 	}));
 }
 

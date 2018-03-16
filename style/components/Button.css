@@ -21,7 +21,7 @@ button.material {
 	text-transform: uppercase;
 	letter-spacing: 0;
 	will-change: box-shadow, transform;
-	transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 1, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	overflow: visible;
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 	-webkit-tap-highlight-color: transparent;

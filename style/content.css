@@ -27,6 +27,9 @@ h4, .h4 {
 	transition: 0.9s ease-in-out;
 	transition-property: border-radius, width, height;
 }
+.content.fast-transition {
+	transition-duration: 0.4s;
+}
 .startup-loader {
 	opacity: 1;
 	pointer-events:  none;

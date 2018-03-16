@@ -2,6 +2,9 @@ window.customElements.define('login-form', class extends HTMLElement {
 	constructor() {
 		super();
 		var fadesIn = this.hasAttribute("fade-in");
+		this.form = document.createElement("form");
+		this.form.setAttribute("name", "login-form");
+		this.form.setAttribute("onsubmit", "return false");
 		var elements = [
 			["input-group username-group", `<stacked-input type="username" label="Usuário"></stacked-input>`],
 			["input-group password-group", `<stacked-input type="password" label="Senha"></stacked-input>`],
@@ -11,9 +14,10 @@ window.customElements.define('login-form', class extends HTMLElement {
 			var element = document.createElement("div");
 			element.setAttribute("class", config[0]);
 			element.innerHTML = config[1];
-			this.appendChild(element);
+			this.form.appendChild(element);
 			return element;
 		});
+		this.appendChild(this.form);
 		if (fadesIn) {
 			this.style.opacity = "0";
 			requestAnimationFrame(()=>requestAnimationFrame(() => {
@@ -50,9 +54,12 @@ this.innerHTML = (`
 		document.querySelector(".startup-loader").style.opacity = "1";
 	}
 	hideLoginLoading() {
-
+		document.querySelector(".startup-loader").style.opacity = "0";
 	}
 	showLoginError(title, message) {
+		var btn = this.elements[3].querySelector("button.material");
+		btn.innerText = "Continuar";
+		btn.setAttribute("color", "orange");
 		var loginMessage = this.elements[2];
 		loginMessage.classList.remove("fade-out");
 		if (title) {
@@ -61,18 +68,22 @@ this.innerHTML = (`
 		if (message) {
 			loginMessage.children[1].innerHTML = message;
 		}
-		if (loginMessage.height < loginMessage.scrollHeight) {
-			var difference = loginMessage.scrollHeight-loginMessage.height;
-			console.log("Didn't fit for ",difference,'px');
-		} else {
-			console.log("Fit:",loginMessage.height,loginMessage.scrollHeight,loginMessage)
+		if (loginMessage.clientHeight < loginMessage.scrollHeight) {
+			var difference = loginMessage.scrollHeight-loginMessage.clientHeight;
+			document.querySelector(".content").style.height = (parseInt(document.querySelector(".content").style.height)+difference)+"px";
+			loginMessage.style.height = loginMessage.scrollHeight+"px";
 		}
+	}
+	showDataError(title, message, data) {
+		return this.showLoginError(title, "<div>"+message+"</div><div class='error-data'>"+data+"</div><button class='material' color='orange'>Mostrar Dados</button>");
 	}
 	hideLoginError() {
 		this.elements[2].classList.add("fade-out");
+		document.querySelector(".content").style.height = "274px";
+		this.elements[2].style.height = "117px";
 	}
 	validateUsername(value) {
-		if (value == "") {
+		if (!value) {
 			return "Campo usuário está em branco";
 		}
 		if (value.charAt(0) == " " || value.substr(-1) == " ") {
@@ -81,8 +92,30 @@ this.innerHTML = (`
 		return true;
 	}
 	validatePassword(value) {
-		return "Senha não pode estar em branco";
-		return false;
+		if (!value) {
+			return "Senha não pode estar em branco";
+		}
+		if (value.charAt(0) == " " || value.substr(-1) == " ") {
+			return "Senha não pode começar ou terminar em espaço";
+		}
+		return true;
+	}
+	handleResponse(response) {
+		this.hideLoginLoading();
+		if (response.chatAt(0) !== "{") {
+			return this.showDataError("Resposta Inválida", "O servidor retornou dados em um formato que não é aceito.", "sdfhadfkhladfh");
+		}
+	}
+	send(username, password) {
+		this.fetch("/", {
+			method: "POST",
+			body: {username, password},
+			mode: "same-origin",
+			credentials: "same-origin",
+			cache: "force-cache",
+		}).then((data)=>data.text()).then(response=>{
+			handleResponse(response);
+		});
 	}
 	submit(event) {
 		var btn = event.target;
@@ -91,13 +124,15 @@ this.innerHTML = (`
 			this.hideInputs();
 			var username = this.querySelector(".username-group input").value;
 			var password = this.querySelector(".password-group input").value;
-			var validationList = [this.validateUsername(username), this.validatePassword(username)];
+			var validationList = [this.validateUsername(username), this.validatePassword(password)];
 			if (validationList.every(validation => validation === true)) {
-
+				try {
+					this.send(username, password);
+				} catch (err) {
+					this.showDataError("Erro na Requisição", "<p style='text-align:center'>Não foi possivel concluir a requisição ao servidor</p>", err);
+				}
 			} else {
-				var message = "<ul>"+validationList.map(validation => (validation===true)?"":((validation===false)?"<li>Erro desconhecido</li>":"<li>"+validation+"</li>")).join("\n");
-				btn.innerText = "Continuar";
-				btn.setAttribute("color", "orange");
+				var message = "<ul>"+validationList.map((validation, i) => (validation===true)?"":((validation===false)?("<li>Erro desconhecido de validação ["+i+"]</li>"):"<li>"+validation+"</li>")).join("\n");
 				this.showLoginError("Erro de Validação", message);
 			}
 		} else if (label === "continuar") {

@@ -16,15 +16,16 @@ login-form .fade-out {
 	pointer-events: none;
 }
 login-form .login-message {
-	transition: opacity 0.3s ease-out;
-	padding: 4px 25px;
+	transition: opacity 0.3s ease-out, height 0.4s ease-in-out 0.01s;
+	padding: 2px 25px 4px 25px;
 	max-width: 100%;
 	height: 117px;
+	min-height: 117px;
 	box-sizing: border-box;
 	margin-top: -117px;
 	position: relative;
 	flex-wrap: wrap;
-	overflow: auto;
+	overflow: hidden;
 }
 login-form .login-message ul {
 	-webkit-padding-start: 20px;
