@@ -14,6 +14,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+if (isset($_SERVER['REQUEST_METHOD'])) {
+	if ($_SERVER['REQUEST_METHOD'] === "POST") {
+		require __DIR__.DIRECTORY_SEPARATOR."app".DIRECTORY_SEPARATOR."handle-post.php";
+		exit;
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html>

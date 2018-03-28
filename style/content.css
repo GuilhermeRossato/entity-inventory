@@ -35,3 +35,27 @@ h4, .h4 {
 	pointer-events:  none;
 	transition: opacity 0.9s ease-in-out;
 }
+.error-data {
+	display: none;
+	opacity: 0;
+	overflow: auto;
+	transition: opacity 0.3s ease-in-out;
+	position: fixed;
+	max-height: 85vh;
+	max-width: 95vw;
+	top: 0;
+	left: 0;
+	background-color: white;
+	border: 1px solid #777;
+	padding: 0.6em 1em;
+	border-radius: 1px;
+}
+.error-data.shown {
+	display: block;
+	opacity: 1;
+}
+.error-data pre {
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+}

@@ -1,4 +1,4 @@
-window.customElements.define('login-form', class extends HTMLElement {
+window.customElements.define('login-form', class LoginForm extends HTMLElement {
 	constructor() {
 		super();
 		var fadesIn = this.hasAttribute("fade-in");
@@ -26,21 +26,11 @@ window.customElements.define('login-form', class extends HTMLElement {
 		}
 		elements[1].children[0].addEventListener("keyup", (evt)=>(evt.code==="Enter" || evt.code==="NumpadEnter")&&(this.submit.call(this)));
 		elements[3].children[0].addEventListener("click", this.submit.bind(this));
+		setTimeout(() => {
+			elements[0].children[0].check();
+			elements[1].children[0].check();
+		}, 1300);
 		this.elements = elements;
-
-/*
-this.innerHTML = (`
-		<div class="input-group username-group">
-			<stacked-input label="Username"></stacked-input>
-		</div>
-		<div class="input-group password-group">
-			<stacked-input label="Password"></stacked-input>
-		</div>
-		<div class="input-group actions-group">
-			<button class='material' color="green">Login</button>
-		</div>
-		`);
-*/
 	}
 	hideInputs() {
 		this.elements[0].classList.add("fade-out");
@@ -74,8 +64,19 @@ this.innerHTML = (`
 			loginMessage.style.height = loginMessage.scrollHeight+"px";
 		}
 	}
-	showDataError(title, message, data) {
-		return this.showLoginError(title, "<div>"+message+"</div><div class='error-data'>"+data+"</div><button class='material' color='orange'>Mostrar Dados</button>");
+	static toggleErrorData() {
+		console.log("Hello");
+	}
+	showDataError(title, message, data, align="center") {
+		this.showLoginError(title, "<div><p style='text-align:"+align+"'>"+message+"</p></div><div class='error-data'>"+data+"</div><button class='material toggle-error-data-btn' color='orange'>Mostrar Dados</button>");
+		document.querySelectorAll(".toggle-error-data-btn").forEach(btn => (btn.onclick = function(event) {
+			var element = event.target.parentNode.querySelector(".error-data");
+			if (element.classList.contains("shown")) {
+				element.classList.remove("shown");
+			} else {
+				element.classList.add("shown");
+			}
+		}));
 	}
 	hideLoginError() {
 		this.elements[2].classList.add("fade-out");
@@ -102,19 +103,14 @@ this.innerHTML = (`
 	}
 	handleResponse(response) {
 		this.hideLoginLoading();
-		if (response.chatAt(0) !== "{") {
-			return this.showDataError("Resposta Inválida", "O servidor retornou dados em um formato que não é aceito.", "sdfhadfkhladfh");
+		if (response.charAt(0) !== "{") {
+			var responseAsText = response.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+			return this.showDataError("Resposta Inválida", "O servidor retornou dados em um formato que não é aceito.", "<pre>"+responseAsText+"</pre>");
 		}
 	}
 	send(username, password) {
-		this.fetch("/", {
-			method: "POST",
-			body: {username, password},
-			mode: "same-origin",
-			credentials: "same-origin",
-			cache: "force-cache",
-		}).then((data)=>data.text()).then(response=>{
-			handleResponse(response);
+		ServerHandler.send("login", {username, password}).then(response=>{
+			this.handleResponse(response);
 		});
 	}
 	submit(event) {
@@ -129,7 +125,8 @@ this.innerHTML = (`
 				try {
 					this.send(username, password);
 				} catch (err) {
-					this.showDataError("Erro na Requisição", "<p style='text-align:center'>Não foi possivel concluir a requisição ao servidor</p>", err);
+					console.error(err);
+					this.showDataError("Erro na Requisição", "Não foi possivel concluir a requisição ao servidor", err.stack.replace(/\n/g, '<br>'));
 				}
 			} else {
 				var message = "<ul>"+validationList.map((validation, i) => (validation===true)?"":((validation===false)?("<li>Erro desconhecido de validação ["+i+"]</li>"):"<li>"+validation+"</li>")).join("\n");
