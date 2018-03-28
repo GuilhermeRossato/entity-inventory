@@ -21,7 +21,8 @@ error_reporting(E_ALL);
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Inventario de Objetos</title>
+	<title>Inventario de Objetos Moderno</title>
+	<link rel="icon" href="favicon.ico">
 	<style>
 		html, body {
 			min-width: 100vw;
