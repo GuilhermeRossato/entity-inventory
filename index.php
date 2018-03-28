@@ -127,10 +127,35 @@ error_reporting(E_ALL);
 	<link rel="stylesheet" type="text/css" href="style/components/LoginForm.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="style/components/Button.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="style/components/StackedInput.css" media="screen">
+<?php
+function search_recursively_for_extension($directory, &$array, $extension=".dat") {
+	//global $debug;
+	if (substr($directory, -1) === "/" || substr($directory, -1) === "\\") {
+		$directory = substr($directory, strlen($directory)-1);
+	}
+	$nodes = scandir($directory);
+	//$debug .= ("Reading Directory: ".$directory."\n").(($nodes === false || $nodes === NULL)?("false, ".(file_exists($directory)?"it does exist":"it doesn't even exist")."\n"):(var_export($nodes, true)."\n"));
+	if (is_array($nodes)) {
+		foreach ($nodes as $node) {
+			if ($node === "." || $node === "..") continue;
+			$node = $directory.DIRECTORY_SEPARATOR.$node;
+			if (is_dir($node)) {
+				search_recursively_for_extension($node, $array, $extension);
+			} else if (substr($node, -strlen($extension)) === $extension) {
+				$array[] = $node;
+			}
+		}
+	}
+}
+$scripts = [];
+search_recursively_for_extension(__DIR__, $scripts, ".js");
+foreach ($scripts as $script) {
+	$script = str_replace(__DIR__.DIRECTORY_SEPARATOR, "", $script);
+	if ($script == "script/startup.js") continue;
+	echo "\t";
+	echo '<script src="'.$script.'"></script>';
+	echo "\n";
+} ?>
 	<script src="script/startup.js"></script>
-	<script src="script/components/CardContent.js"></script>
-	<script src="script/components/CardHeader.js"></script>
-	<script src="script/components/LoginForm.js"></script>
-	<script src="script/components/StackedInput.js"></script>
 </body>
 </html>
