@@ -32,7 +32,7 @@ stacked-input.is-focused input {
 }
 
 stacked-input label {
-	color: #AAAAAA;
+	color: #888;
 	font-weight: 400;
 	margin: 0px 0 -16px 0;
 	display: inline-block;
@@ -40,8 +40,8 @@ stacked-input label {
 	left: 5px;
 	box-sizing: border-box;
 	padding: 0;
-	font-size: 14px;
-	line-height: 1.42857;
+	font-size: 0.875em;
+	white-space: nowrap;
 	position: relative;
 	pointer-events: none;
 	transition: 0.3s ease all;
@@ -51,6 +51,10 @@ stacked-input label {
 stacked-input.is-focused label, stacked-input.has-content label {
 	top: -15px;
 	left: 1px;
-	font-size: 11px;
+	font-size: 0.8em;
 	line-height: 1.07143;
+}
+
+stacked-input input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #eee inset;
 }
